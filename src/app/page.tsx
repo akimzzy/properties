@@ -1,14 +1,8 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
-import SvgHome from "@/components/svgs/SvgHome";
-import SvgPlace from "@/components/svgs/SvgPlace";
 import SvgAccord from "@/components/svgs/SvgAccord";
-import SvgChat from "@/components/svgs/SvgChat";
-import SvgAccord2 from "@/components/svgs/SvgAccord2";
-import SvgCog from "@/components/svgs/SvgCog";
 import SvgLocation from "@/components/svgs/SvgLocation";
 import SvgSearch from "@/components/svgs/SvgSearch";
 import SvgHeadphone from "@/components/svgs/SvgHeadphone";
@@ -19,46 +13,8 @@ import SvgBack from "@/components/svgs/SvgBack";
 import SvgArrow from "@/components/svgs/SvgArrow";
 import FeaturedApartmentsList from "@/components/FeaturedApartmentsList";
 import Image from "next/image"; // Keep Image import as it's used for propertyTabs icons
-import SvgHeart from "@/components/svgs/SvgHeart";
+import { Fragment } from "react";
 
-const tabs = [
-  {
-    name: "Home",
-    icon: <SvgHome />,
-    path: "/",
-  },
-  {
-    name: "Leisure", // Assuming SvgPlace is used here
-    icon: <SvgPlace />, // SvgPlace is used here
-    path: "/leisure", // Path for leisure
-  },
-
-  {
-    name: "Saves",
-    icon: <SvgHeart />, // SvgHeart is used here
-    path: "/saves",
-  },
-  {
-    name: "Chats",
-    icon: <SvgChat />,
-    path: "/chats",
-    tag: 10,
-  },
-  {
-    name: "Account",
-    icon: (
-      <span className="size-6 overflow-hidden bg-pink-200 block rounded-full">
-        <Image
-          src="/avatar.png"
-          width={150}
-          height={150}
-          alt="Picture of an avatar"
-        />
-      </span>
-    ),
-    path: "/accounts",
-  },
-];
 const propertyTabs = [
   {
     name: "Rent Apartment",
@@ -154,286 +110,215 @@ const featuredApartments = [
 ];
 
 export default function Home() {
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const homeTab = searchParams.get("home-tab") ?? "rent-apartment";
   const activePropertyTypeTab =
     searchParams.get("property-type-tab") ?? "self-contained";
 
   return (
-    <div className="flex font-[family-name:var(--font-poppins)] bg-white h-screen min-h-screen w-screen overflow-hidden">
-      <div className="fixed bottom-0 w-screen p-2 bg-white shadow-2xl left-0 sm:hidden z-50 pb-8 pt-2">
-        <ul className="flex text-xs">
-          {tabs.map((tab) => (
-            <li key={tab.name} className="flex-shrink-0">
+    <Fragment>
+      {/* header */}
+      <div className="p-2 pt-4 px-8 border-b border-gray-200 w-full hidden md:flex md:items-center text-xs md:justify-between ">
+        <ul className="flex gap-4 text-xs">
+          {propertyTabs.map((tab) => (
+            <li key={tab.name}>
               <Link
-                href={tab.path}
-                className={`flex flex-col gap-2 items-center px-5 py-3 rounded-lg ${
-                  pathname === tab.path
-                    ? "text-blue-500 font-semibold"
-                    : "  text-gray-500"
-                }`}
+                className="gap-2 flex flex-col justify-center items-center"
+                href={tab.query}
               >
-                <span className="relative">
+                <div className="w-14  h-12 flex justify-center items-center">
                   {tab.icon}
-
-                  {tab.tag && (
-                    <span className="absolute left-1 py-0.5 px-1 bg-blue-500 rounded-full text-white text-[9px] -top-1.5 font-semibold">
-                      {tab.tag}
-                    </span>
-                  )}
+                </div>
+                <span
+                  className={`font-semibold mx-2 ${
+                    homeTab === tab.query ? "text-black" : "text-gray-500"
+                  }`}
+                >
+                  {tab.name}
                 </span>
-                <span>{tab.name}</span>
+                {homeTab === tab.query && (
+                  <div className="h-[3px] bg-black rounded-full w-full"></div>
+                )}
               </Link>
             </li>
           ))}
-          <li></li>
         </ul>
-      </div>
+        <div className="text-gray-500 bg-white p-2 py-3 divide-x divide-gray-200 rounded-full shadow-xl border border-gray-50 flex relative pr-10 text-xs">
+          <button className="flex gap-1 cursor-pointer items-center px-2 py-1">
+            <span className="text-nowrap">Property type</span>
+            <SvgAccord />
+          </button>
+          <button className="flex gap-1 cursor-pointer items-center px-2 py-1">
+            <span className="text-nowrap">Minimun price</span>
+            <SvgAccord />
+          </button>
+          <button className="flex gap-1 cursor-pointer items-center px-2 py-1">
+            <span className="text-nowrap">Maximun price</span>
+            <SvgAccord />
+          </button>
+          <button className="flex gap-1 cursor-pointer items-center p-1 pr-4">
+            <SvgLocation />
+            <span className="text-nowrap">Location</span>
+          </button>
+          <div className=" flex justify-center items-center absolute left-[91%] h-full top-0">
+            <button className="size-12 bg-blue-500 rounded-full flex justify-center text-white items-center cursor-pointer">
+              <SvgSearch />
+            </button>
+          </div>
+        </div>
 
-      <div className="min-w-60 bg-gray-50  h-full border-r border-r-gray-200 md:flex md:flex-col hidden">
-        <div className="p-5 px-7 font-semibold text-2xl border-b border-b-gray-200 relative">
-          sases
-          <button className=" w-7 flex items-center justify-center  absolute -right-3.5 top-0 h-full cursor-pointer">
-            <span className="size-6 rounded-full flex justify-center items-center border border-gray-200 bg-white">
-              <SvgAccord2 />
-            </span>
+        <div className="flex gap-2">
+          <button className="cursor-pointer rounded-full bg-white hover:bg-gray-200 size-9 flex items-center justify-center ">
+            <SvgHeadphone />
+          </button>
+          <button className="size-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center relative cursor-pointer">
+            <span className="size-2.5 rounded-full bg-red-500 absolute top-[2%] right-[1%]"></span>
+            <SvgNotification />
+          </button>
+          <button className="flex gap-2 items-center p-2 py-1 pr-4 cursor-pointer text-gray-500">
+            <SvgPerson />
+
+            <span>Bright Coker</span>
+            <SolidAccord />
           </button>
         </div>
-        <ul className="flex flex-col gap-1 text-xs p-3 py-5 flex-1">
-          {tabs.map((tab) => (
-            <li key={tab.name} className="flex-shrink-0">
-              <Link
-                href={tab.path}
-                className={`flex gap-4 items-center px-5 py-3 rounded-lg ${
-                  pathname === tab.path
-                    ? " bg-blue-500 text-white font-semibold"
-                    : " hover:bg-gray-100 text-gray-500"
-                }`}
-              >
-                <span className="relative">
-                  {tab.icon}
+      </div>
+      {/* main scrollable content */}
+      <div className="sm:p-7 flex-1 overflow-y-auto  md:pt-7">
+        <div className="mb-4 w-full pt-8 sm:pt-0 flex justify-between px-4 sm:px-0 sticky top-0 z-50 bg-white pb-4">
+          <button className="flex items-center gap-1 hover:text-gray-500 transition-all text-xs font-medium cursor-pointer">
+            <SvgBack />
+            <span>Marketplace</span>
+          </button>
 
-                  {tab.tag && (
-                    <span className="absolute left-1 py-0.5 px-1 bg-blue-500 rounded-full text-white text-[9px] -top-1.5 font-semibold">
-                      {tab.tag}
-                    </span>
-                  )}
+          <div className="sm:hidden flex gap-4">
+            <button>
+              <SvgHeadphone />
+            </button>
+            <button className="text-gray-500">
+              <SvgSearch className="size-5" />
+            </button>
+          </div>
+        </div>
+        <div className="flex gap-6 mb-8 overflow-x-auto w-full  px-4 sm:px-0">
+          <div className="p-4 bg-blue-500 w-78 rounded-xl flex-shrink-0">
+            <h3 className="text-sm font-semibold text-white">
+              Real estate goal
+            </h3>
+            <p className="text-[11px] text-white mb-2 mt-1">
+              Tell us your goal and our <b>Ai</b> recommend properties that
+              aligns with it
+            </p>
+            <div className="flex justify-end">
+              <button className="text-[11px] border border-black px-3 bg-[#F1A5C2] text-blue-500 font-semibold py-1 rounded-lg relative z-30 cursor-pointer">
+                Explore
+                <div className="absolute w-full h-full rounded-lg bg-white -top-0.5 left-0.5 text-[11px] border border-black flex justify-center items-center">
+                  Explore
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div className="p-4 bg-green-600 w-78 rounded-xl flex-shrink-0">
+            <div className="flex mb-2">
+              <button className="text-[11px] border border-black px-3 bg-[#F1A5C2] text-blue-500 font-semibold py-1 rounded-lg relative z-30 cursor-pointer">
+                8% per annum
+                <div className="absolute w-full h-full rounded-lg bg-white -top-0.5 left-0.5 text-[11px] border border-black flex justify-center items-center">
+                  8% per annum
+                </div>
+              </button>
+            </div>
+            <h3 className="text-sm font-semibold text-white">Prop safe</h3>
+            <p className="text-[11px] text-white mb-2 mt-1">
+              Save towards your real estate goals
+            </p>
+          </div>
+        </div>
+        <ul className="flex gap-2 text-[10px] sm:text-xs sm:hidden justify-between -mt-2 border-gray-200  px-4 sm:px-0 border-b-6 pb-8">
+          {propertyTabs.map((tab) => (
+            <li className="flex-1" key={tab.name}>
+              <Link
+                className={`gap-2 flex flex-col justify-center items-center rounded-lg p-2 py-6 ${tab.color}`}
+                href={tab.query}
+              >
+                <div className="w-10 h-8 flex justify-center items-center">
+                  {tab.icon}
+                </div>
+                <span className={`font-medium mx-2 text-black`}>
+                  {tab.name}
                 </span>
-                <span>{tab.name}</span>
               </Link>
             </li>
           ))}
         </ul>
-        <div className="flex gap-4 items-center text-xs p-3 px-6 mb-6">
-          <SvgCog />
-          <span>System configuration</span>
+        <div className="overflow-x-auto w-full hidden sm:block">
+          <ul className="flex gap-6 text-sm text-gray-500 font-medium">
+            {propertyTypeTabs.map((item) => (
+              <li
+                className={`whitespace-nowrap flex-shrink-0 cursor-pointer hover:text-gray-700 ${
+                  activePropertyTypeTab === item.query
+                    ? "text-black font-semibold"
+                    : ""
+                }`}
+                key={item.name}
+              >
+                {item.name}
+                {activePropertyTypeTab === item.query && (
+                  <div className="h-[3px] bg-black rounded-full w-full mt-1.5"></div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-6 border-b-6 pb-8 pt-2 sm:pt-0 sm:pb-0 border-gray-200 sm:border-0">
+          <div className="flex justify-between mb-4 px-4 sm:px-0">
+            <h2 className="font-semibold text-lg block sm:hidden">
+              Apartment for rent
+            </h2>
+            <h2 className="font-semibold text-lg hidden sm:block">
+              Top featured apartments for rent
+            </h2>
+
+            <button className="text-xs py-1 px-2 rounded-xl cursor-pointer bg-pink-50 text-pink-500 sm:hidden">
+              See more
+            </button>
+
+            <div className="gap-3 hidden sm:flex">
+              <button className="size-8 flex justify-center items-center rounded-full border text-gray-200 rotate-180  cursor-pointer hover:text-black transition-all">
+                <SvgArrow />
+              </button>
+              <button className="size-8 flex justify-center items-center rounded-full border  text-gray-200 hover:text-black cursor-pointer transition-all">
+                <SvgArrow className="text-black" />
+              </button>
+            </div>
+          </div>
+          <FeaturedApartmentsList apartments={featuredApartments} />
+        </div>
+        <div className="py-8 sm:hidden border-b-6 border-gray-200">
+          <div className="flex justify-between mb-4 px-4 sm:px-0">
+            <h2 className="font-semibold text-lg block sm:hidden">
+              Fastest selling properties
+            </h2>
+
+            <button className="text-xs py-1 px-2 rounded-xl cursor-pointer bg-pink-50 text-pink-500 sm:hidden">
+              See more
+            </button>
+          </div>
+          <FeaturedApartmentsList apartments={featuredApartments} />
+        </div>
+        <div className="py-8 mb-56 sm:hidden">
+          <div className="flex justify-between mb-4 px-4 sm:px-0">
+            <h2 className="font-semibold text-lg block sm:hidden">
+              Fastest selling lands
+            </h2>
+
+            <button className="text-xs py-1 px-2 rounded-xl cursor-pointer bg-pink-50 text-pink-500 sm:hidden">
+              See more
+            </button>
+          </div>
+          <FeaturedApartmentsList apartments={featuredApartments} />
         </div>
       </div>
-      <main className="flex-1 flex-col flex overflow-hidden">
-        {/* header */}
-        <div className="p-2 pt-4 px-8 border-b border-gray-200 w-full hidden md:flex md:items-center text-xs md:justify-between ">
-          <ul className="flex gap-4 text-xs">
-            {propertyTabs.map((tab) => (
-              <li key={tab.name}>
-                <Link
-                  className="gap-2 flex flex-col justify-center items-center"
-                  href={tab.query}
-                >
-                  <div className="w-14  h-12 flex justify-center items-center">
-                    {tab.icon}
-                  </div>
-                  <span
-                    className={`font-semibold mx-2 ${
-                      homeTab === tab.query ? "text-black" : "text-gray-500"
-                    }`}
-                  >
-                    {tab.name}
-                  </span>
-                  {homeTab === tab.query && (
-                    <div className="h-[3px] bg-black rounded-full w-full"></div>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="text-gray-500 bg-white p-2 py-3 divide-x divide-gray-200 rounded-full shadow-xl border border-gray-50 flex relative pr-10 text-xs">
-            <button className="flex gap-1 cursor-pointer items-center px-2 py-1">
-              <span className="text-nowrap">Property type</span>
-              <SvgAccord />
-            </button>
-            <button className="flex gap-1 cursor-pointer items-center px-2 py-1">
-              <span className="text-nowrap">Minimun price</span>
-              <SvgAccord />
-            </button>
-            <button className="flex gap-1 cursor-pointer items-center px-2 py-1">
-              <span className="text-nowrap">Maximun price</span>
-              <SvgAccord />
-            </button>
-            <button className="flex gap-1 cursor-pointer items-center p-1 pr-4">
-              <SvgLocation />
-              <span className="text-nowrap">Location</span>
-            </button>
-            <div className=" flex justify-center items-center absolute left-[91%] h-full top-0">
-              <button className="size-12 bg-blue-500 rounded-full flex justify-center text-white items-center cursor-pointer">
-                <SvgSearch />
-              </button>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <button className="cursor-pointer rounded-full bg-white hover:bg-gray-200 size-9 flex items-center justify-center ">
-              <SvgHeadphone />
-            </button>
-            <button className="size-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center relative cursor-pointer">
-              <span className="size-2.5 rounded-full bg-red-500 absolute top-[2%] right-[1%]"></span>
-              <SvgNotification />
-            </button>
-            <button className="flex gap-2 items-center p-2 py-1 pr-4 cursor-pointer text-gray-500">
-              <SvgPerson />
-
-              <span>Bright Coker</span>
-              <SolidAccord />
-            </button>
-          </div>
-        </div>
-        {/* main scrollable content */}
-        <div className="sm:p-7 flex-1 overflow-y-auto  md:pt-7">
-          <div className="mb-4 w-full pt-14 sm:pt-0 flex justify-between px-4 sm:px-0 sticky top-0 z-50 bg-white pb-4">
-            <button className="flex items-center gap-1 hover:text-gray-500 transition-all text-xs font-medium cursor-pointer">
-              <SvgBack />
-              <span>Marketplace</span>
-            </button>
-
-            <div className="sm:hidden flex gap-4">
-              <button>
-                <SvgHeadphone />
-              </button>
-              <button className="text-gray-500">
-                <SvgSearch className="size-5" />
-              </button>
-            </div>
-          </div>
-          <div className="flex gap-6 mb-8 overflow-x-auto w-full  px-4 sm:px-0">
-            <div className="p-4 bg-blue-500 w-78 rounded-xl flex-shrink-0">
-              <h3 className="text-sm font-semibold text-white">
-                Real estate goal
-              </h3>
-              <p className="text-[11px] text-white mb-2 mt-1">
-                Tell us your goal and our <b>Ai</b> recommend properties that
-                aligns with it
-              </p>
-              <div className="flex justify-end">
-                <button className="text-[11px] border border-black px-3 bg-[#F1A5C2] text-blue-500 font-semibold py-1 rounded-lg relative z-30 cursor-pointer">
-                  Explore
-                  <div className="absolute w-full h-full rounded-lg bg-white -top-0.5 left-0.5 text-[11px] border border-black flex justify-center items-center">
-                    Explore
-                  </div>
-                </button>
-              </div>
-            </div>
-
-            <div className="p-4 bg-green-600 w-78 rounded-xl flex-shrink-0">
-              <div className="flex mb-2">
-                <button className="text-[11px] border border-black px-3 bg-[#F1A5C2] text-blue-500 font-semibold py-1 rounded-lg relative z-30 cursor-pointer">
-                  8% per annum
-                  <div className="absolute w-full h-full rounded-lg bg-white -top-0.5 left-0.5 text-[11px] border border-black flex justify-center items-center">
-                    8% per annum
-                  </div>
-                </button>
-              </div>
-              <h3 className="text-sm font-semibold text-white">Prop safe</h3>
-              <p className="text-[11px] text-white mb-2 mt-1">
-                Save towards your real estate goals
-              </p>
-            </div>
-          </div>
-          <ul className="flex gap-2 text-[10px] sm:text-xs sm:hidden justify-between -mt-2 border-gray-200  px-4 sm:px-0 border-b-6 pb-8">
-            {propertyTabs.map((tab) => (
-              <li className="flex-1" key={tab.name}>
-                <Link
-                  className={`gap-2 flex flex-col justify-center items-center rounded-lg p-2 py-6 ${tab.color}`}
-                  href={tab.query}
-                >
-                  <div className="w-10 h-8 flex justify-center items-center">
-                    {tab.icon}
-                  </div>
-                  <span className={`font-medium mx-2 text-black`}>
-                    {tab.name}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="overflow-x-auto w-full hidden sm:block">
-            <ul className="flex gap-6 text-sm text-gray-500 font-medium">
-              {propertyTypeTabs.map((item) => (
-                <li
-                  className={`whitespace-nowrap flex-shrink-0 cursor-pointer hover:text-gray-700 ${
-                    activePropertyTypeTab === item.query
-                      ? "text-black font-semibold"
-                      : ""
-                  }`}
-                  key={item.name}
-                >
-                  {item.name}
-                  {activePropertyTypeTab === item.query && (
-                    <div className="h-[3px] bg-black rounded-full w-full mt-1.5"></div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-6 border-b-6 pb-8 pt-2 sm:pt-0 sm:pb-0 border-gray-200 sm:border-0">
-            <div className="flex justify-between mb-4 px-4 sm:px-0">
-              <h2 className="font-semibold text-lg block sm:hidden">
-                Apartment for rent
-              </h2>
-              <h2 className="font-semibold text-lg hidden sm:block">
-                Top featured apartments for rent
-              </h2>
-
-              <button className="text-xs py-1 px-2 rounded-xl cursor-pointer bg-pink-50 text-pink-500 sm:hidden">
-                See more
-              </button>
-
-              <div className="gap-3 hidden sm:flex">
-                <button className="size-8 flex justify-center items-center rounded-full border text-gray-200 rotate-180  cursor-pointer hover:text-black transition-all">
-                  <SvgArrow />
-                </button>
-                <button className="size-8 flex justify-center items-center rounded-full border  text-gray-200 hover:text-black cursor-pointer transition-all">
-                  <SvgArrow className="text-black" />
-                </button>
-              </div>
-            </div>
-            <FeaturedApartmentsList apartments={featuredApartments} />
-          </div>
-          <div className="py-8 sm:hidden border-b-6 border-gray-200">
-            <div className="flex justify-between mb-4 px-4 sm:px-0">
-              <h2 className="font-semibold text-lg block sm:hidden">
-                Fastest selling properties
-              </h2>
-
-              <button className="text-xs py-1 px-2 rounded-xl cursor-pointer bg-pink-50 text-pink-500 sm:hidden">
-                See more
-              </button>
-            </div>
-            <FeaturedApartmentsList apartments={featuredApartments} />
-          </div>
-          <div className="py-8 mb-56 sm:hidden">
-            <div className="flex justify-between mb-4 px-4 sm:px-0">
-              <h2 className="font-semibold text-lg block sm:hidden">
-                Fastest selling lands
-              </h2>
-
-              <button className="text-xs py-1 px-2 rounded-xl cursor-pointer bg-pink-50 text-pink-500 sm:hidden">
-                See more
-              </button>
-            </div>
-            <FeaturedApartmentsList apartments={featuredApartments} />
-          </div>
-        </div>
-      </main>
-    </div>
+    </Fragment>
   );
 }
