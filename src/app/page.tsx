@@ -275,7 +275,7 @@ export default function Home() {
         </div>
       </div>
       {/* main scrollable content */}
-      <div className="sm:p-7 flex-1 overflow-y-auto  md:pt-7">
+      <div className="sm:p-7 flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:pt-7">
         <div className="mb-4 w-full pt-8 sm:pt-0 flex justify-between px-4 sm:px-0 sticky top-0 z-50 bg-white pb-4">
           <button className="flex items-center gap-1 hover:text-gray-500 transition-all text-xs font-medium cursor-pointer">
             <SvgBack />
@@ -291,7 +291,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="flex gap-6 mb-8 overflow-x-auto w-full  px-4 sm:px-0">
+        <div className="flex gap-6 mb-8 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full  px-4 sm:px-0">
           <div className="p-4 bg-gradient-to-r from-[#3D79EF] to-[#35A162] sm:from-[#3D79EF] sm:to-[#3D79EF] w-78 rounded-xl flex-shrink-0">
             <h3 className="text-sm font-semibold text-white">
               Real estate goal
@@ -342,7 +342,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <div className="overflow-x-auto w-full hidden sm:block">
+        <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full hidden sm:block">
           <ul className="flex gap-6 text-sm text-gray-500 font-medium">
             {propertyTypeTabs.map((item) => (
               <li

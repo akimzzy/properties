@@ -17,7 +17,7 @@ export default function FeaturedApartmentsList({
   apartments,
 }: Readonly<FeaturedApartmentsListProps>) {
   return (
-    <div className="text-sm overflow-x-auto">
+    <div className="text-sm overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
       <ul className="flex gap-4 w-full px-4 sm:px-0">
         {apartments.map((item, index) => (
           <li key={item.name + index}>
