@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Poppins } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -25,10 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${dmSans.variable} ${poppins.variable} antialiased`}>
-        {children}
-      </body>
-    </html>
+    <Suspense>
+      <html lang="en">
+        <body className={`${dmSans.variable} ${poppins.variable} antialiased`}>
+          {children}
+        </body>
+      </html>
+    </Suspense>
   );
 }

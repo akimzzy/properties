@@ -367,7 +367,7 @@ export default function Home() {
           </ul>
           <div className="overflow-x-auto w-full hidden sm:block">
             <ul className="flex gap-6 text-sm text-gray-500 font-medium">
-              {propertyTypeTabs.map((item, index) => (
+              {propertyTypeTabs.map((item) => (
                 <li
                   className={`whitespace-nowrap flex-shrink-0 cursor-pointer hover:text-gray-700 ${
                     activePropertyTypeTab === item.query
