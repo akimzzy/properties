@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import SvgHome from "@/components/svgs/SvgHome";
 import SvgPlace from "@/components/svgs/SvgPlace";
 import SvgChat from "@/components/svgs/SvgChat";
-import Image from "next/image"; // Keep Image import as it's used for propertyTabs icons
 import SvgHeart from "@/components/svgs/SvgHeart";
 import SvgAccord2 from "@/components/svgs/SvgAccord2";
 import SvgCog from "@/components/svgs/SvgCog";
@@ -20,14 +19,14 @@ const tabs = [
     path: "/",
   },
   {
-    name: "Leisure", // Assuming SvgPlace is used here
-    icon: <SvgPlace />, // SvgPlace is used here
-    path: "/leisure", // Path for leisure
+    name: "Leisure",
+    icon: <SvgPlace />,
+    path: "/leisure",
   },
 
   {
     name: "Saves",
-    icon: <SvgHeart />, // SvgHeart is used here
+    icon: <SvgHeart />,
     path: "/saves",
   },
   {
@@ -39,14 +38,10 @@ const tabs = [
   {
     name: "Account",
     icon: (
-      <span className="size-6 overflow-hidden bg-pink-200 block rounded-full">
-        <Image
-          src="/avatar.png"
-          width={150}
-          height={150}
-          alt="Picture of an avatar"
-        />
-      </span>
+      <span
+        className="size-6 overflow-hidden bg-pink-200 block rounded-full bg-center bg-no-repeat bg-cover"
+        style={{ backgroundImage: "url('/avatar.png')" }}
+      ></span>
     ),
     path: "/account",
   },
