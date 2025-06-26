@@ -124,7 +124,7 @@ export default function Home() {
             <li key={tab.name}>
               <Link
                 className="gap-2 flex flex-col justify-center items-center"
-                href={tab.query}
+                href={"/"}
               >
                 <div className="w-14  h-12 flex justify-center items-center">
                   {tab.icon}
