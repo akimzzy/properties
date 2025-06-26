@@ -54,6 +54,7 @@ const propertyTabs = [
     query: "property-for-sale",
   },
 ];
+
 const propertyTypeTabs = [
   { name: "Self Contained", query: "self-contained" },
   { name: "Mini flat", query: "mini-flat" },
@@ -70,42 +71,132 @@ const propertyTypeTabs = [
   { name: "7 Bedroom terrace duplex", query: "7-bedroom-terrace-duplex" },
   { name: "8 Bedroom terrace duplex", query: "8-bedroom-terrace-duplex" },
 ];
+
 const featuredApartments = [
   {
     name: "Mini flat",
     location: "Ogba",
-    price: "N500,000",
+    price: "₦500,000",
     image: "/self-contain.png",
   },
   {
     name: "2 Bedroom flat",
     location: "Ikeja",
-    price: "N1,800,000",
+    price: "₦1,800,000",
     image: "/2-bedroom.png",
   },
   {
     name: "4 Bedroom Terrace Flat",
     location: "Berger",
-    price: "N3,400,000",
+    price: "₦3,400,000",
     image: "/4-bedroom.png",
   },
   {
     name: "3 Bedroom Flat",
-    location: "Berger",
-    price: "N2,600,000",
-    image: "/new-one.png",
-  },
-  {
-    name: "6 Bedroom Flat",
-    location: "Ojota",
-    price: "N4,600,000",
-    image: "/new-one.png",
-  },
-  {
-    name: "5 Bedroom Flat",
     location: "V.I",
-    price: "N3,600,000",
+    price: "₦2,600,000",
     image: "/new-one.png",
+  },
+  {
+    name: "Self Contained",
+    location: "Ojota",
+    price: "₦400,000",
+    image: "/3-bedroom-flat.png",
+  },
+  {
+    name: "4 Bedroom Terrace Flat",
+    location: "Berger",
+    price: "₦3,400,000",
+    image: "/rp.jpg",
+  },
+  {
+    name: "3 Bedroom  Flat",
+    location: "V.I",
+    price: "₦2,600,000",
+    image: "/rp.jpg",
+  },
+  {
+    name: "3 Bedroom Flat",
+    location: "V.I",
+    price: "₦2,600,000",
+    image: "/rp.jpg",
+  },
+];
+
+const fastestSellingProperties = [
+  {
+    name: "4 Bedroom Duplex",
+    location: "Omole Estate",
+    price: "₦28,000,000",
+    image: "/fs1.png",
+  },
+  {
+    name: "5 Bedroom Terrace",
+    location: "Ikeja",
+    price: "₦32,000,000",
+    image: "/fs2.jpg",
+  },
+  {
+    name: "4 Bedroom Duplex",
+    location: "Berger",
+    price: "₦28,000,000",
+    image: "/fs3.jpg",
+  },
+  {
+    name: "5 Bedroom Terrace",
+    location: "Oke-ira",
+    price: "₦32,000,000",
+    image: "/fs4.jpg",
+  },
+  {
+    name: "4 Bedroom Duplex",
+    location: "Berger",
+    price: "₦28,000,000",
+    image: "/fs5.jpg",
+  },
+  {
+    name: "5 Bedroom Terrace",
+    location: "Oke-iraI",
+    price: "₦₦32,000,000",
+    image: "/fs6.jpg",
+  },
+];
+
+const fastestSellingLands = [
+  {
+    name: "Shimawa, Ikotun",
+    location: "Ikotun",
+    price: "450,000",
+    sqm: 500,
+    image: "/l1.png",
+  },
+  {
+    name: "The Premium",
+    location: "Epe",
+    price: "₦32,000,000",
+    sqm: 500,
+    image: "/l2.jpg",
+  },
+  {
+    name: "Eleko beachfront",
+    location: "Eleko",
+    price: "₦2,300,000",
+    sqm: 300,
+    image: "/l3.jpg",
+  },
+  {
+    name: "Epe Coastal land",
+    location: "Epe",
+    price: "₦2,500,000",
+    sqm: 600,
+    image: "/l4.jpg",
+  },
+  {
+    name: "Ibeju Lekki beachfront",
+    location: "Ibeju Lekki",
+    price: "₦3,000,000",
+    sqm: 250,
+    image: "/l5.jpg",
   },
 ];
 
@@ -201,7 +292,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex gap-6 mb-8 overflow-x-auto w-full  px-4 sm:px-0">
-          <div className="p-4 bg-blue-500 w-78 rounded-xl flex-shrink-0">
+          <div className="p-4 bg-gradient-to-r from-[#3D79EF] to-[#35A162] sm:from-[#3D79EF] sm:to-[#3D79EF] w-78 rounded-xl flex-shrink-0">
             <h3 className="text-sm font-semibold text-white">
               Real estate goal
             </h3>
@@ -219,7 +310,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="p-4 bg-green-600 w-78 rounded-xl flex-shrink-0">
+          <div className="p-4  bg-gradient-to-b from-[#F1A5C2] to-[#8B5F70] sm:bg-green-600 sm:from-[#35A162] sm:to-[#35A162] w-78 rounded-xl flex-shrink-0">
             <div className="flex mb-2">
               <button className="text-[11px] border border-black px-3 bg-[#F1A5C2] text-blue-500 font-semibold py-1 rounded-lg relative z-30 cursor-pointer">
                 8% per annum
@@ -304,7 +395,7 @@ export default function Home() {
               See more
             </button>
           </div>
-          <FeaturedApartmentsList apartments={featuredApartments} />
+          <FeaturedApartmentsList apartments={fastestSellingProperties} />
         </div>
         <div className="py-8 mb-56 sm:hidden">
           <div className="flex justify-between mb-4 px-4 sm:px-0">
@@ -316,7 +407,7 @@ export default function Home() {
               See more
             </button>
           </div>
-          <FeaturedApartmentsList apartments={featuredApartments} />
+          <FeaturedApartmentsList apartments={fastestSellingLands} />
         </div>
       </div>
     </Fragment>

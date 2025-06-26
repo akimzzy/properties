@@ -78,7 +78,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dmSans.variable} ${poppins.variable} antialiased`}>
         <div className="flex font-[family-name:var(--font-poppins)] bg-white h-screen min-h-screen w-screen overflow-hidden">
-          <div className="fixed bottom-0 w-screen p-2 bg-white shadow-2xl left-0 sm:hidden z-50 pb-8 pt-2">
+          <div className="fixed bottom-0 w-screen p-2 bg-white shadow-2xl border-t border-gray-100 left-0 sm:hidden z-50 pb-8 pt-2">
             <ul className="flex text-xs">
               {tabs.map((tab) => (
                 <li key={tab.name} className="flex-shrink-0">
